@@ -2,14 +2,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const cors = require("cors");
+
 // import the routes
 const productRoute = require("./server/routes/productRoute");
+const categoryRoute = require("./server/routes/categoryRoute");
 
 // set up dependencies
 const app = express();
 app.use(morgan("dev"));
 
 // MiddleWare
+app.use(cors());
+// app.options("*", cors());
 app.use(express.json());
 // set up envirement Variables
 require("dotenv/config");
@@ -20,6 +25,7 @@ mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then((res) => console.log("Connection Established with MONGODB"))
   .catch((err) => console.log(err));
@@ -29,6 +35,7 @@ app.get("/", (req, res) => res.send("Hello Api Summary on " + api));
 
 // routes
 app.use(`/${api}/products`, productRoute);
+app.use(`/${api}/category`, categoryRoute);
 
 // app.get(`/${api}/products`, (req, res) => {
 //   const product = {
