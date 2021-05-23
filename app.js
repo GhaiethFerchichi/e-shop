@@ -7,6 +7,7 @@ const cors = require("cors");
 // import the routes
 const productRoute = require("./server/routes/productRoute");
 const categoryRoute = require("./server/routes/categoryRoute");
+const userRoute = require("./server/routes/userRoute");
 
 // set up dependencies
 const app = express();
@@ -36,6 +37,7 @@ app.get("/", (req, res) => res.send("Hello Api Summary on " + api));
 // routes
 app.use(`/${api}/products`, productRoute);
 app.use(`/${api}/category`, categoryRoute);
+app.use(`/${api}/users`, userRoute);
 
 // app.get(`/${api}/products`, (req, res) => {
 //   const product = {
