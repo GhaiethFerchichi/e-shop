@@ -4,6 +4,9 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 
+// import the middleWare of authetication
+const authenticationJWT = require("./server/helpers/jwt");
+
 // import the routes
 const productRoute = require("./server/routes/productRoute");
 const categoryRoute = require("./server/routes/categoryRoute");
@@ -17,6 +20,8 @@ app.use(morgan("dev"));
 app.use(cors());
 // app.options("*", cors());
 app.use(express.json());
+app.use(authenticationJWT);
+
 // set up envirement Variables
 require("dotenv/config");
 const api = process.env.API_URL;
